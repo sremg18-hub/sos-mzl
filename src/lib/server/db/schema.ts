@@ -73,6 +73,7 @@ export const inspections = pgTable(
 		notificadoFirma: text('notificado_firma'),
 		notificadoNombre: text('notificado_nombre'),
 		notificadoCedula: text('notificado_cedula'),
+		photos: jsonb('photos').$type<string[]>().notNull().default([]),
 		lat: doublePrecision('lat'),
 		lng: doublePrecision('lng'),
 		inspectorId: integer('inspector_id').references(() => users.id),

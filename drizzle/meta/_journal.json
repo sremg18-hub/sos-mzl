@@ -8,6 +8,13 @@
       "when": 1786554872151,
       "tag": "0000_hot_firebrand",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1786574550084,
+      "tag": "0001_right_bruce_banner",
+      "breakpoints": true
     }
   ]
 }

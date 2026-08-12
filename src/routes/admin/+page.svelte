@@ -283,6 +283,12 @@
 					Limpiar
 				</a>
 			{/if}
+			<a
+				href="/api/export?{new URLSearchParams({ desde: filterDesde, hasta: filterHasta, barrio: filterBarrio }).toString()}"
+				class="ml-auto rounded-lg border border-emerald-600 px-4 py-2 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-50"
+			>
+				⬇ Exportar CSV
+			</a>
 		</div>
 	</form>
 

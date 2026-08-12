@@ -98,6 +98,50 @@
 	let saving = $state(false);
 	let draftSyncId = $state<string | null>(null);
 	let geoMsg = $state('');
+	let photos = $state<string[]>([]);
+
+	async function addPhoto(file: File) {
+		if (photos.length >= 3) return;
+		try {
+			const dataUrl = await compressImage(file);
+			if (dataUrl) photos = [...photos, dataUrl];
+		} catch {
+			notice = { kind: 'err', text: 'No se pudo procesar la foto.' };
+		}
+	}
+
+	function removePhoto(index: number) {
+		photos = photos.filter((_, i) => i !== index);
+	}
+
+	function compressImage(file: File): Promise<string | null> {
+		return new Promise((resolve, reject) => {
+			const url = URL.createObjectURL(file);
+			const img = new Image();
+			img.onload = () => {
+				try {
+					const MAX = 1280;
+					const scale = Math.min(1, MAX / Math.max(img.width, img.height));
+					const canvas = document.createElement('canvas');
+					canvas.width = Math.round(img.width * scale);
+					canvas.height = Math.round(img.height * scale);
+					const ctx = canvas.getContext('2d');
+					if (!ctx) return reject(new Error('canvas'));
+					ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+					resolve(canvas.toDataURL('image/jpeg', 0.7));
+				} catch (e) {
+					reject(e);
+				} finally {
+					URL.revokeObjectURL(url);
+				}
+			};
+			img.onerror = () => {
+				URL.revokeObjectURL(url);
+				reject(new Error('img'));
+			};
+			img.src = url;
+		});
+	}
 
 	let bomberoCanvas: HTMLCanvasElement | undefined;
 	let notificadoCanvas: HTMLCanvasElement | undefined;
@@ -276,6 +320,7 @@
 			notificadoFirma: notificadoFirma ?? undefined,
 			notificadoNombre: notificadoNombre.trim() || undefined,
 			notificadoCedula: notificadoCedula.trim() || undefined,
+			photos,
 			lat: lat ?? null,
 			lng: lng ?? null,
 			residents: residents
@@ -983,6 +1028,47 @@
 					</div>
 				</div>
 			</div>
+		</section>
+
+		<section class="border-b border-gray-100 px-4 py-5 sm:px-6">
+			<h3 class="mb-4 text-sm font-bold uppercase text-emerald-700">Fotos del predio</h3>
+			<div class="grid grid-cols-3 gap-3 sm:grid-cols-5">
+				{#each photos as photo, i (i)}
+					<div class="relative overflow-hidden rounded-xl border border-gray-200">
+						<img src={photo} alt="Foto del predio" class="aspect-square w-full object-cover" />
+						<button
+							type="button"
+							onclick={() => removePhoto(i)}
+							aria-label="Quitar foto"
+							class="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white"
+						>
+							✕
+						</button>
+					</div>
+				{/each}
+				{#if photos.length < 3}
+					<label
+						class="flex aspect-square cursor-pointer flex-col items-center justify-center gap-1 rounded-xl border-2 border-dashed border-gray-300 text-gray-400 hover:border-emerald-400 hover:text-emerald-600"
+					>
+						<span class="text-2xl">📷</span>
+						<span class="text-[10px] font-semibold">Agregar foto</span>
+						<input
+							type="file"
+							accept="image/*"
+							capture="environment"
+							class="hidden"
+							onchange={(e) => {
+								const f = e.currentTarget.files?.[0];
+								if (f) addPhoto(f);
+								e.currentTarget.value = '';
+							}}
+						/>
+					</label>
+				{/if}
+			</div>
+			<p class="mt-2 text-xs text-gray-400">
+				Máximo 3 fotos (cámara o galería). Se comprimen automáticamente — evidencia para el PMU.
+			</p>
 		</section>
 
 		<section class="border-b border-gray-100 px-4 py-5 sm:px-6">

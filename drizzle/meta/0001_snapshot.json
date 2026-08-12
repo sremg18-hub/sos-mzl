@@ -1,0 +1,564 @@
+{
+  "id": "07d7ece3-d5ce-445c-a6d9-537ef7b5a39c",
+  "prevId": "6b36a55c-fc53-4ed0-bab3-15f02e0579f2",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.inspections": {
+      "name": "inspections",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "sync_id": {
+          "name": "sync_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "num_revision": {
+          "name": "num_revision",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "barrio": {
+          "name": "barrio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "direccion": {
+          "name": "direccion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "encuestado_doc": {
+          "name": "encuestado_doc",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "encuestado_nombre": {
+          "name": "encuestado_nombre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "encuestado_telefono": {
+          "name": "encuestado_telefono",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "encuestado_fecha_nacimiento": {
+          "name": "encuestado_fecha_nacimiento",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rol_encuestado": {
+          "name": "rol_encuestado",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "rol_otro": {
+          "name": "rol_otro",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "propietario_doc": {
+          "name": "propietario_doc",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "propietario_nombre": {
+          "name": "propietario_nombre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "propietario_telefono": {
+          "name": "propietario_telefono",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "evento_estado": {
+          "name": "evento_estado",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipo_evento": {
+          "name": "tipo_evento",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipo_evento_otro": {
+          "name": "tipo_evento_otro",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "deterioro": {
+          "name": "deterioro",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "nivel_afectacion": {
+          "name": "nivel_afectacion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "infra_afectada": {
+          "name": "infra_afectada",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "perdida_bienes": {
+          "name": "perdida_bienes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "requiere_visita": {
+          "name": "requiere_visita",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "requiere_visita_otro": {
+          "name": "requiere_visita_otro",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "evacuacion": {
+          "name": "evacuacion",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "fecha": {
+          "name": "fecha",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "hora": {
+          "name": "hora",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "bombero_firma": {
+          "name": "bombero_firma",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bombero_nombre": {
+          "name": "bombero_nombre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bombero_cedula": {
+          "name": "bombero_cedula",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "notificado_firma": {
+          "name": "notificado_firma",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "notificado_nombre": {
+          "name": "notificado_nombre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "notificado_cedula": {
+          "name": "notificado_cedula",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "photos": {
+          "name": "photos",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "lat": {
+          "name": "lat",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "lng": {
+          "name": "lng",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "inspector_id": {
+          "name": "inspector_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "inspector_name": {
+          "name": "inspector_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "idx_inspections_barrio": {
+          "name": "idx_inspections_barrio",
+          "columns": [
+            {
+              "expression": "barrio",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_inspections_fecha": {
+          "name": "idx_inspections_fecha",
+          "columns": [
+            {
+              "expression": "fecha",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_inspections_created_at": {
+          "name": "idx_inspections_created_at",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "idx_inspections_lat_lng": {
+          "name": "idx_inspections_lat_lng",
+          "columns": [
+            {
+              "expression": "lat",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "lng",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "inspections_inspector_id_users_id_fk": {
+          "name": "inspections_inspector_id_users_id_fk",
+          "tableFrom": "inspections",
+          "tableTo": "users",
+          "columnsFrom": [
+            "inspector_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "inspections_sync_id_unique": {
+          "name": "inspections_sync_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "sync_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.residents": {
+      "name": "residents",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "inspection_id": {
+          "name": "inspection_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tipo_doc": {
+          "name": "tipo_doc",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "num_doc": {
+          "name": "num_doc",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "nombre": {
+          "name": "nombre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "parentesco": {
+          "name": "parentesco",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_nacimiento": {
+          "name": "fecha_nacimiento",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "idx_residents_inspection": {
+          "name": "idx_residents_inspection",
+          "columns": [
+            {
+              "expression": "inspection_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "residents_inspection_id_inspections_id_fk": {
+          "name": "residents_inspection_id_inspections_id_fk",
+          "tableFrom": "residents",
+          "tableTo": "inspections",
+          "columnsFrom": [
+            "inspection_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.sessions": {
+      "name": "sessions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "sessions_user_id_users_id_fk": {
+          "name": "sessions_user_id_users_id_fk",
+          "tableFrom": "sessions",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password_hash": {
+          "name": "password_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'inspector'"
+        },
+        "active": {
+          "name": "active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

@@ -7,6 +7,7 @@ services:
       DATABASE_URL: postgres://sosmzl:${POSTGRES_PASSWORD:-sosmzl_prod}@db:5432/sosmzl
       PORT: 3000
       NODE_ENV: production
+      BODY_SIZE_LIMIT: 15m
       PROTOCOL_HEADER: x-forwarded-proto
       HOST_HEADER: x-forwarded-host
     depends_on:

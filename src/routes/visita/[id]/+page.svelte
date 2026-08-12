@@ -355,6 +355,23 @@
 		</div>
 	</section>
 
+	{#if ins.photos && ins.photos.length > 0}
+		<section class="px-6 py-4">
+			<h3 class="mb-3 text-sm font-bold uppercase">Fotos del predio</h3>
+			<div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+				{#each ins.photos as photo, i (i)}
+					<a href={photo} target="_blank" rel="noopener">
+						<img
+							src={photo}
+							alt={`Foto ${i + 1} del predio`}
+							class="aspect-square w-full rounded-xl border border-gray-200 object-cover"
+						/>
+					</a>
+				{/each}
+			</div>
+		</section>
+	{/if}
+
 	<footer class="border-t border-gray-200 bg-gray-50 px-6 py-3 text-center text-xs text-gray-500">
 		Registrada por {ins.inspectorName || '—'} · Código {FORM_CODE} · {FORM_VERSION}
 	</footer>

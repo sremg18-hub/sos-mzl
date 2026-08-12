@@ -115,6 +115,16 @@ const inspectionSchema = z.object({
 	lat: coordOrNull,
 	lng: coordOrNull,
 	inspectorName: textOrNull,
+	photos: z
+		.array(
+			z
+				.string()
+				.startsWith('data:image/', 'La foto debe ser una imagen')
+				.refine((s) => s.length <= 4_000_000, 'Cada foto no puede superar ~3MB')
+		)
+		.max(3, 'Máximo 3 fotos por visita')
+		.optional()
+		.default([]),
 	residents: z.array(residentSchema).optional().default([])
 });
 
@@ -223,6 +233,7 @@ export const POST: RequestHandler = async (event) => {
 		notificadoCedula: data.notificadoCedula,
 		lat: data.lat,
 		lng: data.lng,
+		photos: data.photos,
 		inspectorId: user.id,
 		inspectorName: data.inspectorName ?? user.name
 	};
