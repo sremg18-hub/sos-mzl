@@ -7,3 +7,5 @@ build/
 *.local
 .DS_Store
 npm-debug.log*
+dev-server.log
+
