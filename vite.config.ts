@@ -8,6 +8,9 @@ export default defineConfig({
 	plugins: [
 		tailwindcss(),
 		sveltekit({
+			csrf: {
+				checkOrigin: false
+			},
 			compilerOptions: {
 				runes: ({ filename }) => (filename.split(/[/\\]/).includes('node_modules') ? undefined : true)
 			},
@@ -19,7 +22,7 @@ export default defineConfig({
 			}
 		}),
 		SvelteKitPWA({
-			registerType: 'autoUpdate',
+			registerType: 'prompt',
 			includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
 			manifest: {
 				name: 'SOS Manizales — Revisión a Predio',

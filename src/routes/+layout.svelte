@@ -8,12 +8,16 @@
 	let { children } = $props();
 
 	let updateSW = $state<((reload?: boolean) => Promise<void>) | null>(null);
+	let needRefresh = $state(false);
 
 	$effect(() => {
 		if ('serviceWorker' in navigator) {
 			updateSW = registerSW({
 				onNeedRefresh() {
-					updateSW?.(true);
+					needRefresh = true;
+				},
+				onOfflineReady() {
+					needRefresh = false;
 				}
 			});
 		}
@@ -26,7 +30,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 </svelte:head>
 
-{#if updateSW}
+{#if needRefresh}
 	<div class="no-print fixed inset-x-0 top-0 z-50 bg-amber-500 px-4 py-2 text-center text-sm font-semibold text-white">
 		Nueva versión disponible.
 		<button class="underline" onclick={() => updateSW?.(true)}>Actualizar ahora</button>
