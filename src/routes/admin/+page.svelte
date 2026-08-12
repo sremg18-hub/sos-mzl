@@ -199,6 +199,12 @@
 			if (disposed || !mapEl) return;
 			leafletLib = { divIcon: mod.divIcon, marker: mod.marker };
 			map = mod.map(mapEl, { center: [5.0703, -75.5138], zoom: 12 });
+			mod
+				.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+					attribution: '&copy; OpenStreetMap contributors',
+					maxZoom: 19
+				})
+				.addTo(map);
 			layerGroup = mod.layerGroup().addTo(map);
 			renderMarkers();
 		});
