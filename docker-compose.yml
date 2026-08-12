@@ -1,0 +1,34 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://sosmzl:${POSTGRES_PASSWORD:-sosmzl_prod}@db:5432/sosmzl
+      PORT: 3000
+      NODE_ENV: production
+      PROTOCOL_HEADER: x-forwarded-proto
+      HOST_HEADER: x-forwarded-host
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: sosmzl
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-sosmzl_prod}
+      POSTGRES_DB: sosmzl
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sosmzl -d sosmzl"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+    name: sosmzl-prod-pgdata
