@@ -8,11 +8,14 @@ formulario oficial **GUE-RPD-FR-02 "Revisión a Predio"** tras el terremoto del 
 ## Funcionalidades
 
 - **Formulario completo** GUE-RPD-FR-02 (7 secciones): dirección, encuestado (con bloque condicional de arrendatario/propietario), tabla de residentes dinámica, evento, afectación con áreas m², entidades de visita, evacuación, fecha/hora y **firmas digitales** (canvas).
+- **Fotos del predio**: hasta 3 fotos (cámara del celular), comprimidas automáticamente, visibles en el detalle de la visita.
 - **Georreferenciación**: GPS del celular + pin arrastrable en mapa Leaflet por visita.
 - **PWA offline**: los formularios se guardan en el dispositivo (IndexedDB) sin señal y se sincronizan automáticamente al recuperar conexión (botón de sincronización en la barra superior).
 - **Impresión**: vista del formato oficial A4 lista para firmar físicamente.
 - **Roles**: `admin` (gestión de usuarios, panel BI) e `inspector` (visitas).
 - **Panel BI**: KPIs, gráficos (visitas/día, por barrio, distribución de afectación) y **mapa** de la ciudad con markers por nivel de afectación y filtros por fechas/barrio.
+- **Exportación CSV** (admin): todas las visitas con filtros, formato compatible con Excel.
+- **Protección de fuerza bruta** en el login (6 intentos fallidos → bloqueo 15 min por IP).
 
 ## Desarrollo local
 
@@ -95,4 +98,17 @@ src/
 - Sesiones con cookie `httpOnly` + `secure` en producción (7 días).
 - Contraseñas con bcrypt (10 rounds).
 - Guards por rol en el hook de servidor y en cada API.
+- Rate-limit de login: 6 intentos fallidos por IP → bloqueo 15 minutos.
 - El `Dockerfile` corre como `node` (sin root) y expone solo `PORT`.
+- `BODY_SIZE_LIMIT=15m` requerido para las fotos del predio.
+
+## Respaldo de datos (Coolify)
+
+La configuración de backup **diario** ya está creada por API sobre la base de datos
+(`sosmzl-db`), pero el **destino de almacenamiento debe asignarse una vez desde la UI**:
+
+1. Coolify → Databases → `sosmzl-db` → **Backups** → editar la configuración "daily".
+2. En **Storage**: crear/Asignar un storage **Local** (disco del servidor) o S3.
+3. Guardar. El backup diario quedará activo.
+
+Se recomienda además activar el **monitoreo de uptime** de la aplicación en Coolify.
