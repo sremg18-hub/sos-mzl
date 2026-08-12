@@ -54,7 +54,7 @@
 			</div>
 			<div class="flex items-center gap-2">
 				<SyncStatus />
-				<form method="POST" action="?/logout" class="no-print">
+				<form method="POST" action="/logout" class="no-print">
 					<button class="rounded-lg bg-gray-100 px-3 py-2 text-sm hover:bg-gray-200">Salir</button>
 				</form>
 			</div>
