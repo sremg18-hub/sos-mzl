@@ -1,4 +1,6 @@
 <script lang="ts">
+	import './layout.css';
+	import '@fontsource-variable/inter';
 	import { registerSW } from 'virtual:pwa-register';
 	import { page } from '$app/state';
 	import SyncStatus from '$lib/components/SyncStatus.svelte';
